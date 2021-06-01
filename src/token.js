@@ -37,7 +37,7 @@ class AppleClientSecret {
      */
     _generateToken(clientId, teamId, privateKey, exp, keyid) {
         return new Promise (
-            (resolve, reject) => {
+            function(resolve, reject) {
                 // Curate the claims
                 const claims = {
                     iss: teamId,
@@ -50,7 +50,7 @@ class AppleClientSecret {
                 jwt.sign(claims, privateKey, {
                     algorithm: 'ES256',
                     keyid
-                }, (err, token) => {
+                }, function(err, token) {
                     if (err) {
                         reject("AppleAuth Error – Error occurred while signing: " + err);
                     }
@@ -67,24 +67,25 @@ class AppleClientSecret {
      */
     generate() {
         return new Promise (
-            (resolve, reject) => {
+            var self = this;
+            function(resolve, reject) {
                 let privateKey;
                 try {
-                    privateKey = this._privateKeyLocation ? fs.readFileSync(this._privateKeyLocation) : this._privateKeyString;
+                    privateKey = self._privateKeyLocation ? fs.readFileSync(self._privateKeyLocation) : self._privateKeyString;
                 } catch (err) {
                     return reject("AppleAuth Error - Couldn't read your Private Key file: " + err);
                 }
 
                 let exp = Math.floor(Date.now() / 1000) + ( 86400 * 180 ); // Make it expire within 6 months
-                this._generateToken(
-                    this._config.client_id, 
-                    this._config.team_id, 
+                self._generateToken(
+                    self._config.client_id, 
+                    self._config.team_id, 
                     privateKey,
                     exp, 
-                    this._config.key_id
-                ).then((token) => {
+                    self._config.key_id
+                ).then(function(token) {
                     resolve(token);
-                }).catch((err) => {
+                }).catch(function(err) {
                     reject(err);
                 });
             

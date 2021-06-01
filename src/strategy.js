@@ -69,20 +69,21 @@ function Strategy(options, verify) {
 
     this._oauth2.getOAuthAccessToken = function(code, params, callback) {
         // Generate the client_secret using the library
+        var self = this;
         _tokenGenerator.generate().then((client_secret) => {
             params = params || {};
             const codeParam = params.grant_type === 'refresh_token' ? 'refresh_token' : 'code';
             params[codeParam] = code;
-            params['client_id'] = this._clientId;
+            params['client_id'] = self._clientId;
             params['client_secret'] = client_secret;
 
             const post_data = querystring.stringify(params);
             const post_headers = {
                 'Content-Type': 'application/x-www-form-urlencoded'
             };
-            this._request(
+            self._request(
                 'POST',
-                this._getAccessTokenUrl(),
+                self._getAccessTokenUrl(),
                 post_headers,
                 post_data,
                 null,
@@ -97,7 +98,7 @@ function Strategy(options, verify) {
                     }
                 }
             )
-        }).catch((error) => {
+        }).catch(function(error) {
             callback(error);
         });
     }
