@@ -52,11 +52,11 @@ function Strategy(options, verify) {
     options.authorizationURL = options.authorizationURL || 'https://appleid.apple.com/auth/authorize';
     options.tokenURL = options.tokenURL || 'https://appleid.apple.com/auth/token';
     options.passReqToCallback = options.passReqToCallback === undefined ? true : options.passReqToCallback
-
+    console.log('OAuth2Strategy->options01->',options);
     // Make the OAuth call
     OAuth2Strategy.call(this, options, verify);
     this.name = 'apple';
-    console.log('OAuth2Strategy->options->',options);
+    console.log('OAuth2Strategy->options02->',options);
     // Initiliaze the client_secret generator
     const _tokenGenerator = new AppleClientSecret({
         "client_id": options.clientID,
