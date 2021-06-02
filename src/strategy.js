@@ -115,7 +115,9 @@ util.inherits(Strategy, OAuth2Strategy);
  */
 Strategy.prototype.authenticate = function (req, options) {
     // Workaround instead of reimplementing authenticate function
-    req.query = { ...req.query, ...req.body };
+    //req.query = { ...req.query, ...req.body };
+    for (var attrname in req.body) { req.query[attrname] = req.body[attrname]; }
+    
     if(req.body && req.body.user){
       req.appleProfile = JSON.parse(req.body.user)
     }
