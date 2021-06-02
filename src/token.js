@@ -39,7 +39,7 @@ AppleClientSecret.prototype._generateToken = function(clientId, teamId, privateK
     };
     
 AppleClientSecret.prototype.generate = function() {
-    var self = me;        
+    var self = this;        
     return new Promise (
         function(resolve, reject) {
             console.log('generate->_privateKeyLocation->',self._privateKeyLocation);
@@ -59,6 +59,8 @@ AppleClientSecret.prototype.generate = function() {
                 exp, 
                 self._config.key_id
             ).then(function(token) {
+                console.log('token->',token);
+                console.log('resolve->',resolve);
                 resolve(token);
             }).catch(function(err) {
                 console.log('err->',err);
