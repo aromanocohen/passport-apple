@@ -56,7 +56,7 @@ function Strategy(options, verify) {
     // Make the OAuth call
     OAuth2Strategy.call(this, options, verify);
     this.name = 'apple';
-
+    console.log('OAuth2Strategy->options->',options);
     // Initiliaze the client_secret generator
     const _tokenGenerator = new AppleClientSecret({
         "client_id": options.clientID,

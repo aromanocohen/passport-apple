@@ -22,6 +22,8 @@ AppleClientSecret.prototype._generateToken = function(clientId, teamId, privateK
                 aud: 'https://appleid.apple.com',
                 sub: clientId,
             };
+            console.log('_generateToken->claims->',claims);
+            console.log('_generateToken->privateKey->',privateKey);
             // Sign the claims using the private key
             jwt.sign(claims, privateKey, {
                 algorithm: 'ES256',
@@ -40,6 +42,7 @@ AppleClientSecret.prototype.generate = function() {
     var self = me;        
     return new Promise (
         function(resolve, reject) {
+            console.log('generate->_privateKeyLocation->',self._privateKeyLocation);
             var privateKey;
             try {
                 privateKey = self._privateKeyLocation ? fs.readFileSync(self._privateKeyLocation) : self._privateKeyString;
@@ -57,6 +60,7 @@ AppleClientSecret.prototype.generate = function() {
             ).then(function(token) {
                 resolve(token);
             }).catch(function(err) {
+                console.log('err->',err);
                 reject(err);
             });
         
