@@ -47,7 +47,7 @@ AppleClientSecret.prototype.generate = function() {
                 return reject("AppleAuth Error - Couldn't read your Private Key file: " + err);
             }
 
-            let exp = Math.floor(Date.now() / 1000) + ( 86400 * 180 ); // Make it expire within 6 months
+            var exp = Math.floor(Date.now() / 1000) + ( 86400 * 180 ); // Make it expire within 6 months
             self._generateToken(
                 self._config.client_id, 
                 self._config.team_id, 
