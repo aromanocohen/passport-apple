@@ -26,6 +26,7 @@ AppleClientSecret.prototype._generateToken = function(clientId, teamId, privateK
             console.log('_generateToken->privateKey->',privateKey);
             console.log('_generateToken->keyid->',keyid);
             // Sign the claims using the private key
+            console.log('_generateToken->jwt.sign->',jwt.sign);
             try {
                 jwt.sign(claims, privateKey, {
                     algorithm: 'ES256',
