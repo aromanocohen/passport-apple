@@ -69,6 +69,8 @@ function Strategy(options, verify) {
 
     this._oauth2.getOAuthAccessToken = function(code, params, callback) {
         // Generate the client_secret using the library
+        console.log('getOAuthAccessToken->params->',params);
+        console.log('getOAuthAccessToken->code->',code);
         var self = this;
         _tokenGenerator.generate().then(function(client_secret) {
             params = params || {};
