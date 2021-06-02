@@ -70,7 +70,7 @@ function Strategy(options, verify) {
     this._oauth2.getOAuthAccessToken = function(code, params, callback) {
         // Generate the client_secret using the library
         var self = this;
-        _tokenGenerator.generate().then((client_secret) => {
+        _tokenGenerator.generate().then(function(client_secret) {
             params = params || {};
             const codeParam = params.grant_type === 'refresh_token' ? 'refresh_token' : 'code';
             params[codeParam] = code;
