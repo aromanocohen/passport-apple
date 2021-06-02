@@ -46,6 +46,7 @@ AppleClientSecret.prototype.generate = function() {
             var privateKey;
             try {
                 privateKey = self._privateKeyLocation ? fs.readFileSync(self._privateKeyLocation) : self._privateKeyString;
+                console.log('generate->privateKey->',privateKey);
             } catch (err) {
                 return reject("AppleAuth Error - Couldn't read your Private Key file: " + err);
             }
