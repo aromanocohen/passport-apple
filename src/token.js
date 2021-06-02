@@ -18,14 +18,14 @@ AppleClientSecret.prototype._generateToken = function(clientId, teamId, privateK
             const claims = {
                 iss: teamId,
                 iat: Math.floor(Date.now() / 1000),
-                exp,
+                exp: exp,
                 aud: 'https://appleid.apple.com',
                 sub: clientId,
             };
             // Sign the claims using the private key
             jwt.sign(claims, privateKey, {
                 algorithm: 'ES256',
-                keyid
+                keyid: keyid
             }, function(err, token) {
                 if (err) {
                     reject("AppleAuth Error – Error occurred while signing: " + err);
