@@ -26,18 +26,24 @@ AppleClientSecret.prototype._generateToken = function(clientId, teamId, privateK
             console.log('_generateToken->privateKey->',privateKey);
             console.log('_generateToken->keyid->',keyid);
             // Sign the claims using the private key
-            jwt.sign(claims, privateKey, {
-                algorithm: 'ES256',
-                keyid: keyid
-            }, function(err, token) {
-                console.log('_generateToken->err->',err);
-                console.log('_generateToken->token->',token);
-                console.log('_generateToken->resolve->',resolve);
-                if (err) {
-                    reject("AppleAuth Error – Error occurred while signing: " + err);
-                }
-                resolve(token);
-            });
+            try {
+                jwt.sign(claims, privateKey, {
+                    algorithm: 'ES256',
+                    keyid: keyid
+                }, function(err, token) {
+                    console.log('_generateToken->err->',err);
+                    console.log('_generateToken->token->',token);
+                    console.log('_generateToken->resolve->',resolve);
+                    if (err) {
+                        reject("AppleAuth Error – Error occurred while signing: " + err);
+                    }
+                    resolve(token);
+                });                
+            } catch (e) {
+                console.log('error al firmar',e);
+                reject("AppleAuth Error – Error occurred al firmar: " + e);    
+            }
+
         }
         );
     };
