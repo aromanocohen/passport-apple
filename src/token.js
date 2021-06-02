@@ -40,7 +40,7 @@ AppleClientSecret.prototype.generate = function() {
     var self = me;        
     return new Promise (
         function(resolve, reject) {
-            let privateKey;
+            var privateKey;
             try {
                 privateKey = self._privateKeyLocation ? fs.readFileSync(self._privateKeyLocation) : self._privateKeyString;
             } catch (err) {
